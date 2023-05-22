@@ -1,4 +1,5 @@
 --[[
+
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -49,6 +50,15 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight_yank', {}),
+  desc = 'Hightlight selection on yank',
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+  end,
+})
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -291,6 +301,7 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>tk', require('telescope.builtin').keymaps, { desc = '[T]elescioe [K]eymaps' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
